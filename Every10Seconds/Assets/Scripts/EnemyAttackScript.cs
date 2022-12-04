@@ -91,7 +91,7 @@ public class EnemyAttackScript : MonoBehaviour
 
     IEnumerator shooting()
     {
-        Instantiate(enemyBullet,RayoriginPoint.position,Quaternion.identity);
+        Instantiate(enemyBullet,RayoriginPoint.position,transform.rotation);
         yield return new WaitForSeconds(0.5f);
     }
 }
