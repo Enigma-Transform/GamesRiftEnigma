@@ -24,6 +24,9 @@ public class EnemyAttackScript : MonoBehaviour
     int floatSpeed;
     [SerializeField]
     bool chasePlayer;
+
+    [SerializeField]
+    EnemyBullet enemyBullet;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -37,11 +40,15 @@ public class EnemyAttackScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        AttackState();
+        //AttackState();
+
+        TurretAiming();
+
     }
 
     void AttackState()
     {
+        Vector3 pos = transform.position;
         RaycastHit hitinfo;
         if (Physics.Raycast(RayoriginPoint.position, transform.forward, out hitinfo, maxDist, layerMask))
         {
@@ -63,7 +70,28 @@ public class EnemyAttackScript : MonoBehaviour
         }
         else
         {
+            transform.position = pos;
             //  Debug.Log("none");
         }
+    }
+
+
+    void TurretAiming()
+    {
+        RaycastHit hitinfo;
+        if (Physics.Raycast(RayoriginPoint.position, transform.forward, out hitinfo, maxDist, layerMask))
+        {
+            if (hitinfo.collider.gameObject.tag == "Player")
+            {
+
+                StartCoroutine(shooting());
+            }
+        }
+    }
+
+    IEnumerator shooting()
+    {
+        Instantiate(enemyBullet,RayoriginPoint.position,Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
     }
 }

@@ -64,5 +64,12 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "PickUp")
+        {
+            Debug.Log(true);
+            collision.gameObject.SetActive(false);
+        }
+    }
 }
