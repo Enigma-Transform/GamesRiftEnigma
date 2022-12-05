@@ -7,6 +7,11 @@ TagManager:
   - Enemy
   - Calm
   - PowerUp
+  - PickUp
+  - Bullet
+  - Block
+  - PointB
+  - PointA
   layers:
   - Default
   - TransparentFX
