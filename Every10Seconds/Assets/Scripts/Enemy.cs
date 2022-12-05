@@ -46,26 +46,26 @@ public class Enemy : MonoBehaviour
             {
 
                 case 1:
-                    // morphStatesGO[0].SetActive(true);
-                    Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
-                   // morphStatesGO[1].SetActive(false);
-                   // morphStatesGO[2].SetActive(false);
+                     morphStatesGO[0].SetActive(true);
+                   // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
+                    morphStatesGO[1].SetActive(false);
+                    morphStatesGO[2].SetActive(false);
 
                     break;
 
                 case 2:
-                    //morphStatesGO[1].SetActive(true);
-                    Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
-                   // morphStatesGO[0].SetActive(false);
-                  //  morphStatesGO[2].SetActive(false);
+                    morphStatesGO[1].SetActive(true);
+                    //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
+                    morphStatesGO[0].SetActive(false);
+                    morphStatesGO[2].SetActive(false);
 
                     break;   
 
                 case 3:
-                    //morphStatesGO[2].SetActive(true);
-                    Instantiate(morphStatesGO[2], transform.position, Quaternion.identity);
-                    //morphStatesGO[0].SetActive(false);
-                    //morphStatesGO[1].SetActive(false);
+                    morphStatesGO[2].SetActive(true);
+                    //Instantiate(morphStatesGO[2], transform.position, Quaternion.identity);
+                    morphStatesGO[0].SetActive(false);
+                    morphStatesGO[1].SetActive(false);
                     break;
 
                 default:

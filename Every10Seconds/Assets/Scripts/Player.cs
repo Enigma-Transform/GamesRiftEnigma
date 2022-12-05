@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     bool isKeyPressedD,isKeyPressedA,isKeyPressed;
 
-    [SerializeField]
-    Vector3 torque;
+  
     [Range(0,100)]
     [SerializeField]
     float rotSpeed;
@@ -70,6 +69,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log(true);
             collision.gameObject.SetActive(false);
+            //Destroy(collision.gameObject);
         }
     }
 }

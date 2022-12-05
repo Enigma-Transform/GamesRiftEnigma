@@ -27,6 +27,8 @@ public class EnemyAttackScript : MonoBehaviour
 
     [SerializeField]
     EnemyBullet enemyBullet;
+
+    bool isShot;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class EnemyAttackScript : MonoBehaviour
     }
     void Start()
     {
-        
+        ///StartCoroutine(Enemyrotation());
     }
 
     // Update is called once per frame
@@ -42,7 +44,8 @@ public class EnemyAttackScript : MonoBehaviour
     {
         //AttackState();
 
-        TurretAiming();
+        TurretAiming(); 
+
 
     }
 
@@ -91,7 +94,29 @@ public class EnemyAttackScript : MonoBehaviour
 
     IEnumerator shooting()
     {
-        Instantiate(enemyBullet,RayoriginPoint.position,transform.rotation);
-        yield return new WaitForSeconds(0.5f);
+        if (isShot == false)
+        {
+            Instantiate(enemyBullet, RayoriginPoint.position, transform.rotation);
+            isShot = true;
+            //Debug.Log(isShot);
+
+        }
+
+        yield return new WaitForSeconds(1f);
+        isShot = false;
+    
+        //Debug.Log(isShot);
+
+    }
+
+    IEnumerator Enemyrotation()
+    {
+        transform.Rotate(new Vector3(0,90,0));
+
+        yield return new WaitForSeconds(4f);
+        transform.Rotate(new Vector3(0, -90, 0));
+
+        yield return new WaitForSeconds(1f);
+
     }
 }
