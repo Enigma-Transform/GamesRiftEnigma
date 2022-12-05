@@ -1,0 +1,122 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.9f1 (108be757e447) revision 1084391'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home Single Language; OS build 19043.1889; Version 2009; 64bit' Language: 'en' Physical Memory: 8075 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.9f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+D:/UnityProjects/OceanCleanUp3d
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+1043
+Successfully changed project path to: D:/UnityProjects/OceanCleanUp3d
+D:/UnityProjects/OceanCleanUp3d
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 108.36 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.9f1 (108be757e447)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/UnityProjects/OceanCleanUp3d/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1050 (ID=0x1c8d)
+    Vendor:   
+    VRAM:     1977 MB
+    Driver:   31.0.15.1694
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56444
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003741 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 71.44 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.923 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001718 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 71.80 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.335 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
+Refreshing native plugins compatible for Editor in 0.83 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2896 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 136.1 MB.
+System memory in use after: 136.3 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3345.
+Total: 3.239200 ms (FindLiveObjects: 0.331900 ms CreateObjectMapping: 0.195600 ms MarkObjects: 2.579300 ms  DeleteObjects: 0.131000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Prefab/Boat .prefab
+  artifactKey: Guid(2f29e412e2491244aaef2cc562df52d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Boat .prefab using Guid(2f29e412e2491244aaef2cc562df52d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f6e4b793c8c3e3ebdc28c074026791d') in 0.302999 seconds
+  Import took 0.375255 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 21.142442 seconds.
+  path: Assets/Prefab/Sphere.prefab
+  artifactKey: Guid(b388163296b63e24e9042a0f4bd17b2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Sphere.prefab using Guid(b388163296b63e24e9042a0f4bd17b2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70fcb3a2c9b9baaf5476ddf7038d477d') in 0.016785 seconds
+  Import took 0.042837 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.007710 seconds.
+  path: Assets/Prefab/Sphere.prefab
+  artifactKey: Guid(b388163296b63e24e9042a0f4bd17b2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Sphere.prefab using Guid(b388163296b63e24e9042a0f4bd17b2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70fcb3a2c9b9baaf5476ddf7038d477d') in 0.012056 seconds
+  Import took 0.043258 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 104.848775 seconds.
+  path: Assets/Prefab/ForceField.shadergraph
+  artifactKey: Guid(350fdc8381ab00c45843f6668fc8f303) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/ForceField.shadergraph using Guid(350fdc8381ab00c45843f6668fc8f303) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '310b8a6ff267656b74c721ba47cedc1e') in 0.013033 seconds
+  Import took 0.053783 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.612445 seconds.
+  path: Assets/Prefab/ForceField.shadergraph
+  artifactKey: Guid(350fdc8381ab00c45843f6668fc8f303) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/ForceField.shadergraph using Guid(350fdc8381ab00c45843f6668fc8f303) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '310b8a6ff267656b74c721ba47cedc1e') in 0.006422 seconds
+  Import took 0.012929 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 565.318164 seconds.
+  path: Assets/Forcefield.shadergraph
+  artifactKey: Guid(1617bc68dd7102444961ef3ae87c7228) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Forcefield.shadergraph using Guid(1617bc68dd7102444961ef3ae87c7228) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b81cd5dab18bb6158b88004b31caf927') in 0.055332 seconds
+  Import took 0.294712 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
