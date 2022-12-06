@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     [Range(0, 100)]
     [SerializeField]
     float speed;
+
+    [SerializeField]
+    List<GameObject> storyCapsuleList = new List<GameObject>();
+
+    [SerializeField]
+    StoryTracker storyTracker;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,7 +34,12 @@ public class Player : MonoBehaviour
 
     }
     private void Update()
-    { 
+    {
+        if(storyCapsuleList.Count > 0)
+        {
+            storyTracker.StoryProgression(storyCapsuleList.Count);
+
+        }
     }
         // Update is called once per frame
     void FixedUpdate()
@@ -62,7 +73,11 @@ public class Player : MonoBehaviour
         }
 
     }
-
+   void StoryCapsuleCollected(GameObject storyCapsuleGO)
+    {
+        storyCapsuleList.Add(storyCapsuleGO);
+        //Debug.Log(storyCapsuleList.Count);
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "PickUp")
@@ -70,6 +85,11 @@ public class Player : MonoBehaviour
             Debug.Log(true);
             collision.gameObject.SetActive(false);
             //Destroy(collision.gameObject);
+        }
+        else if(collision.gameObject.tag == "Story Capsule")
+        {
+            storyCapsuleList.Add(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 }

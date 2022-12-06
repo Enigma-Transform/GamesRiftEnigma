@@ -12,6 +12,7 @@ TagManager:
   - Block
   - PointB
   - PointA
+  - Story Capsule
   layers:
   - Default
   - TransparentFX
