@@ -29,6 +29,13 @@ public class EnemyAttackScript : MonoBehaviour
     EnemyBullet enemyBullet;
 
     bool isShot;
+
+    [SerializeField]
+    float time;
+    RaycastHit hitinfo;
+    [SerializeField]
+    float size;
+    Color iniColor;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -36,6 +43,8 @@ public class EnemyAttackScript : MonoBehaviour
     }
     void Start()
     {
+       iniColor=  gameObject.GetComponent<Renderer>().material.color;
+
         ///StartCoroutine(Enemyrotation());
     }
 
@@ -44,7 +53,7 @@ public class EnemyAttackScript : MonoBehaviour
     {
         //AttackState();
 
-        TurretAiming(); 
+       // TurretAiming(); 
 
 
     }
@@ -53,8 +62,8 @@ public class EnemyAttackScript : MonoBehaviour
     {
         Vector3 pos = transform.position;
         RaycastHit hitinfo;
-        if (Physics.Raycast(RayoriginPoint.position, transform.forward, out hitinfo, maxDist, layerMask))
-        {
+        if (Physics.SphereCast(RayoriginPoint.position, size, Vector3.forward, out hitinfo, maxDist, layerMask))
+        { 
             if (hitinfo.collider.gameObject.tag == "Player")
             {
                // Debug.Log("player");
@@ -78,16 +87,43 @@ public class EnemyAttackScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            TurretAiming();
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            gameObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+        }
+       
+    }
 
+    private void OnTriggerExit(Collider other)
+    {   
+        {
+            gameObject.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+
+            gameObject.GetComponent<Renderer>().material.color = iniColor; ;
+
+        }
+    }
     void TurretAiming()
     {
-        RaycastHit hitinfo;
-        if (Physics.Raycast(RayoriginPoint.position, transform.forward, out hitinfo, maxDist, layerMask))
+        time +=Time.deltaTime;
+        if (time >= 2.5)
+        {
+
+            StartCoroutine(shooting());
+            time = 0;
+
+        }
+        if (Physics.Raycast(RayoriginPoint.position, RayoriginPoint.transform.forward, out hitinfo, maxDist, layerMask))
         {
             if (hitinfo.collider.gameObject.tag == "Player")
             {
 
-                StartCoroutine(shooting());
+                //Debug.Log(time++ +"Player") ;
+                
             }
         }
     }
@@ -119,4 +155,13 @@ public class EnemyAttackScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+
+        Gizmos.DrawSphere(hitinfo.point,size);
+    }
+
 }

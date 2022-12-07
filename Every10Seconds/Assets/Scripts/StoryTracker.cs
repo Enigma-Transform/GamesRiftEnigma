@@ -20,7 +20,7 @@ public class StoryTracker : MonoBehaviour
           
             case 1:
                 storyText.gameObject.SetActive(true); 
-                storyText.text = "Welcome to this recording... Collecting more recording like this to unlock rooms";
+                storyText.text = "Welcome to this recording... Collecting more recording like this to unlock rooms.You will die if your health reaches 0";
                
                // Debug.Log("Story 1 ");
                 break;
@@ -120,7 +120,7 @@ public class StoryTracker : MonoBehaviour
 
     }
 
-    public void StoryTextF(bool turnOn)
+    public void StoryTextG(bool turnOn)
     {
         if (turnOn)
         {
@@ -135,4 +135,20 @@ public class StoryTracker : MonoBehaviour
         }
 
     }
+    public void StoryTextF(bool turnOn)
+    {
+        if (turnOn)
+        {
+            panel.SetActive(true);
+
+            storyText.text = "Do you feel powerless when you can't control your environment??";
+        }
+        else
+        {
+            panel.SetActive(false);
+            storyText.text = "";
+        }
+
+    }
+    
 }

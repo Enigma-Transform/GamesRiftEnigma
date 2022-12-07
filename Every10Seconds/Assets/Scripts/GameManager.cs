@@ -6,10 +6,31 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI replayText,GameOverText;
+    TextMeshProUGUI replayText,GameOverText, healthText;
+    [SerializeField]
+    bool gameOver;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (gameOver == true)
+            {
+
+                ReplayGame();
+            }
+        }
+    }
+
+
+    public void HealethUi(int health)
+    {
+        healthText.text = health.ToString();
+    }
     public void GameOver()
     {
         GameOverText.gameObject.SetActive(true);
+        gameOver = true;
         GameOverText.text = "You Died. Press 'R' to replay";
         Time.timeScale = 0;
     }

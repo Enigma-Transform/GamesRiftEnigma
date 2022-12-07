@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6580157428145644424}
   - component: {fileID: -8909653542480835479}
   - component: {fileID: 3796962725169114492}
+  - component: {fileID: 1842619952}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -194,6 +195,8 @@ MonoBehaviour:
   chasePlayer: 0
   enemyBullet: {fileID: -4071296502292896134, guid: e4354fdd703cbd74a99c44da4ce8f432,
     type: 3}
+  time: 0
+  size: 0.5
 --- !u!54 &-8909653542480835479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,6 +226,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &1842619952
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859245987009666092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.32, y: 1, z: 18.33}
+  m_Center: {x: 0, y: 0, z: 7.4}
 --- !u!1 &859245987548402040
 GameObject:
   m_ObjectHideFlags: 0

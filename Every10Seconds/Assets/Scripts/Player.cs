@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentHealth = Health;
+        gm.HealethUi(currentHealth);
     }
     // Start is called before the first frame update
     void Start()
@@ -93,8 +94,10 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "PickUp")
         {
-            Debug.Log(true);
+          //  Debug.Log(true);
             collision.gameObject.SetActive(false);
+            gm.HealethUi(currentHealth += 1);
+            
             //Destroy(collision.gameObject);
         }
 
@@ -102,7 +105,7 @@ public class Player : MonoBehaviour
         {
             if (currentHealth >= 0)
             {
-                currentHealth -= 1;
+               gm.HealethUi(currentHealth -= 1);
             }
 
             if(currentHealth <= 0)
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "StoryCapsuleA")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextA(turnOn);
@@ -126,6 +130,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryCapsuleB")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextB(turnOn);
@@ -134,6 +139,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryCapsuleC")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextC(turnOn);
@@ -142,6 +148,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryCapsuleD")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextD(turnOn);
@@ -150,6 +157,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryCapsuleE")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextE(turnOn);
@@ -158,11 +166,22 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "StoryCapsuleF")
         {
+            rb.velocity = Vector3.zero;
             turnOn = true;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextF(turnOn);
             //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
            
+
+        }
+        else if (other.gameObject.tag == "StoryCapsuleG")
+        {
+            rb.velocity = Vector3.zero;
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextG(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+
 
         }
     }
@@ -205,6 +224,12 @@ public class Player : MonoBehaviour
             turnOn = false;
             //storyCapsuleList.Add(other.gameObject);
             other.GetComponent<StoryTracker>().StoryTextF(turnOn);
+        }
+        else if (other.gameObject.tag == "StoryCapsuleG")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextG(turnOn);
         }
     }
 
