@@ -21,4 +21,13 @@ public class EnemyBullet : MonoBehaviour
         rb.velocity = transform.forward * speed;
         Destroy(this.gameObject, 5f);
     }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag =="Player"|| collision.gameObject.tag == "Block")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

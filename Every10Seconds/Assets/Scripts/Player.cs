@@ -24,9 +24,20 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     StoryTracker storyTracker;
+
+    bool turnOn;
+    [SerializeField]
+    int Health;
+
+    [SerializeField]
+    int currentHealth;
+
+    [SerializeField]
+    GameManager gm;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        currentHealth = Health;
     }
     // Start is called before the first frame update
     void Start()
@@ -37,7 +48,7 @@ public class Player : MonoBehaviour
     {
         if(storyCapsuleList.Count > 0)
         {
-            storyTracker.StoryProgression(storyCapsuleList.Count);
+           // storyTracker.StoryProgression(storyCapsuleList.Count);
 
         }
     }
@@ -86,10 +97,116 @@ public class Player : MonoBehaviour
             collision.gameObject.SetActive(false);
             //Destroy(collision.gameObject);
         }
-        else if(collision.gameObject.tag == "Story Capsule")
+
+        else if(collision.gameObject.tag == "EnemyBullet")
         {
-            storyCapsuleList.Add(collision.gameObject);
-            collision.gameObject.SetActive(false);
+            if (currentHealth >= 0)
+            {
+                currentHealth -= 1;
+            }
+
+            if(currentHealth <= 0)
+            {
+                gm.GameOver();
+            }
+        }
+
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "StoryCapsuleA")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextA(turnOn);
+          //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+            
+        }
+        else if (other.gameObject.tag == "StoryCapsuleB")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextB(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+
+        }
+        else if (other.gameObject.tag == "StoryCapsuleC")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextC(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+
+        }
+        else if (other.gameObject.tag == "StoryCapsuleD")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextD(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+
+        }
+        else if (other.gameObject.tag == "StoryCapsuleE")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextE(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+
+        }
+        else if (other.gameObject.tag == "StoryCapsuleF")
+        {
+            turnOn = true;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextF(turnOn);
+            //  other.GetComponent<StoryTracker>().StoryProgression(storyCapsuleList.Count);
+           
+
         }
     }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "StoryCapsuleA")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextA(turnOn);
+        }
+        else if(other.gameObject.tag == "StoryCapsuleB")
+        {
+                turnOn = false;
+                //storyCapsuleList.Add(other.gameObject);
+                other.GetComponent<StoryTracker>().StoryTextB(turnOn);
+        }
+        else if (other.gameObject.tag == "StoryCapsuleC")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextC(turnOn);
+        }
+        else if (other.gameObject.tag == "StoryCapsuleD")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextD(turnOn);
+        }
+        else if (other.gameObject.tag == "StoryCapsuleE")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextE(turnOn);
+        }
+        else if (other.gameObject.tag == "StoryCapsuleF")
+        {
+            turnOn = false;
+            //storyCapsuleList.Add(other.gameObject);
+            other.GetComponent<StoryTracker>().StoryTextF(turnOn);
+        }
+    }
+
+
 }

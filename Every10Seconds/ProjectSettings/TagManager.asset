@@ -13,6 +13,13 @@ TagManager:
   - PointB
   - PointA
   - Story Capsule
+  - StoryCapsuleA
+  - StoryCapsuleB
+  - StoryCapsuleC
+  - StoryCapsuleD
+  - StoryCapsuleE
+  - StoryCapsuleF
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
