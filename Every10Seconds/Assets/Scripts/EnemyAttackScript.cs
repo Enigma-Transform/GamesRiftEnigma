@@ -36,6 +36,7 @@ public class EnemyAttackScript : MonoBehaviour
     [SerializeField]
     float size;
     Color iniColor;
+
     // Start is called before the first frame update
     private void Awake()
     {

@@ -21,6 +21,8 @@ TagManager:
   - StoryCapsuleF
   - EnemyBullet
   - StoryCapsuleG
+  - CinemachineTarget
+  - Wall
   layers:
   - Default
   - TransparentFX

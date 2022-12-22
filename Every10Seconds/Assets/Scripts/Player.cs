@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     GameManager gm;
+
+    [SerializeField]
+    ParticleSystem ps;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,6 +46,10 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (ps.isPlaying)
+        {
+            ps.Stop();
+        }
 
     }
     private void Update()
@@ -103,6 +110,8 @@ public class Player : MonoBehaviour
 
         else if(collision.gameObject.tag == "EnemyBullet")
         {
+            ps.Play();
+
             if (currentHealth >= 0)
             {
                gm.HealethUi(currentHealth -= 1);
@@ -112,6 +121,10 @@ public class Player : MonoBehaviour
             {
                 gm.GameOver();
             }
+        }
+        else
+        {
+            ps.Stop();
         }
 
     }

@@ -37,7 +37,7 @@ public class EnemyPatrollingScrtips : MonoBehaviour
         {
 
             case EnemyState.Patrolling:
-                //Patrolling();
+                PatrollingForward(transform.position);
 
                 break;
 
@@ -51,42 +51,15 @@ public class EnemyPatrollingScrtips : MonoBehaviour
     }
 
 
-    void PatrollingForward(Vector3 currPos,bool isDestinationB)
+    void PatrollingForward(Vector3 currPos)
     {
-        if (!isDestinationB)
-        {
+        
             transform.LookAt(patrollingPoints[1]);
             Vector3 dir = patrollingPoints[1].position - currPos;
             rb.AddForce(dir*speed, ForceMode.Acceleration);
-        }
+        
 
     }
-     void PatrollingBack(Vector3 currPos, bool isDestinationA)
-    {
-        if (!isDestinationA)
-        {
-            transform.LookAt(patrollingPoints[0]);
-            Vector3 dir = patrollingPoints[0].position - currPos;
-            rb.AddForce(dir * speed, ForceMode.Acceleration);
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        
-       if(other.tag == "PointA")
-        {
-            Debug.Log("A");
-            reachedDestinationB =false;
-            reachedDestinationA = true;
-            PatrollingForward(transform.position, reachedDestinationB);
-        }
-        if (other.tag == "PointB")
-        {
-            Debug.Log("B");
-            reachedDestinationB = true;
-            reachedDestinationA = false;
-            PatrollingBack(transform.position, reachedDestinationA);
-        }
-    }
+    
 
 }
