@@ -23,6 +23,7 @@ TagManager:
   - StoryCapsuleG
   - CinemachineTarget
   - Wall
+  - PatrollingEnemy
   layers:
   - Default
   - TransparentFX

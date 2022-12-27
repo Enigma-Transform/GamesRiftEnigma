@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 859245987009666080}
   - component: {fileID: -8909653542480835479}
   - component: {fileID: 3796962725169114492}
-  - component: {fileID: 945083876}
   m_Layer: 0
   m_Name: PatrollingEnemy
   m_TagString: Enemy
@@ -200,25 +199,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &945083876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859245987009666092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9da5b3967fe484bafc461a362a7ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrollingPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyState: 1
-  speed: 8
-  reachedDestinationA: 0
-  reachedDestinationB: 0
 --- !u!1 &859245987548402040
 GameObject:
   m_ObjectHideFlags: 0

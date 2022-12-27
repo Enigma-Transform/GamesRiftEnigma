@@ -21,6 +21,9 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     float speed;
 
+    [Range(0, 100)]
+    [SerializeField]
+    float dashSpeed;
 
     [SerializeField]
     int Health;
@@ -30,7 +33,11 @@ public class Player3d : MonoBehaviour
 
     [SerializeField]
     float charge;
-    RaycastHit hit;
+
+    [Range(0,100)]
+    [SerializeField]
+    float maxCharge;
+
     [SerializeField]
     Transform originPoint;
 
@@ -41,6 +48,15 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     AudioSource audioSo;
     Vector3 dir;
+
+    [SerializeField]
+    bool mbUp;
+
+    [SerializeField]
+    bool isCharged;
+
+    [SerializeField]
+    RoomUnlock roomUnlock;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -51,60 +67,56 @@ public class Player3d : MonoBehaviour
 
     private void Update()
     {
-        
+        dir = (transform.forward * maxDist);
+
         if (transform.rotation.x > 0|| transform.rotation.x < 0)
         {
             transform.Rotate(new Vector3(0,transform.rotation.y,0));
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (charge < maxCharge)
+            {
+                charge += Time.deltaTime;
+
+            }
+            lr.SetActive(true);
+            lrGO.SetPosition(0, originPoint.position);
+            lrGO.SetPosition(1,dir*maxDist+transform.position);
+            mbUp = false; 
+           
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            lr.SetActive(false);
+            if (charge >= maxCharge)
+            {
+                isCharged = true;
+            }
+             mbUp = true;
+        }
+
+        if(charge== 0)
+        {
+            isCharged = false;
+        }
+
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        dir = (transform.forward * maxDist).normalized;
         
-        if (Input.GetMouseButton(0))
+     
+        if(mbUp == true)
         {
 
-            lr.SetActive(true);
-            RaycastHit hit;
-            lrGO.SetPosition(0, originPoint.position);
-            charge += Time.deltaTime;
-
-            if (charge >= 3)
+            if (isCharged)
             {
-                rb.velocity = (dir)* speed*5;
-                //charge = 0;
+                rb.velocity = (dir) * maxDist*dashSpeed;
+                charge = 0;
             }
-            if (Physics.Raycast(originPoint.position, transform.forward, out hit))
-            {
-               
-                lrGO.SetPosition(1, hit.point);
-                Debug.DrawLine(originPoint.position, hit.point);
-
-                if (hit.collider.tag == "Enemy")
-                {
-                 //   transform.LookAt(hit.collider.transform);
-                   
-                        
-                    
-                }
-                if (charge >= 3)
-                {
-                    rb.AddForce((hit.collider.transform.position- transform.position).normalized*speed,ForceMode.Impulse);
-                   //charge = 0;
-                }
-                // Do something with the object that was hit by the raycast.
-            }
-            else
-            {
-                lrGO.SetPosition(1, dir);
-                Debug.DrawLine(originPoint.position, dir);
-            }
-        }
-        else
-        {
-            lr.SetActive(false);
-            charge = 0;
+           
         }
         
        
@@ -143,8 +155,23 @@ public class Player3d : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
         {
+            if(collision.gameObject.tag == "Enemy")
+            {
+                collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
+                roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
+            }
+            
             rb.velocity = Vector3.zero;
             charge = 0;
+        }
+
+        if(collision.gameObject.tag == "PatrollingEnemy")
+        {
+            collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
+            roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
+
+            collision.gameObject.GetComponent<ChasePlayerScript>().enemyMove = false;
+
         }
     }
 }

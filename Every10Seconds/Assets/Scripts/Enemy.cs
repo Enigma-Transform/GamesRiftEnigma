@@ -5,13 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    EnemyNew script;
+    [SerializeField]
+    bool isEnemyHit;
+    [SerializeField]
     float time= 0;
     public enum MorphState
     {
-        Calm =1,
-        Enemy =2,
-        PowerUp=3,
-        PickUp=4,
+        Enemy =1,
+        PowerUp=2,
+        PickUp=3,
     }
     [SerializeField]
     int state;
@@ -34,60 +37,50 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        time += Time.deltaTime;
-
-        if(time >= 10)
+       isEnemyHit = script.isEnemyHit;
+        
+        if(isEnemyHit == false)
         {
-            state = Random.Range(1, 5);
-            time = 0;
-          
-            switch (state)
+            time += Time.deltaTime;
+            if (time >= 10)
             {
+                state = Random.Range(1, 5);
+                time = 0;
 
-                case 1:
-                     morphStatesGO[0].SetActive(true);
-                   // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
-                    morphStatesGO[1].SetActive(false);
-                    morphStatesGO[2].SetActive(false);
+                switch (state)
+                {
 
-                    break;
+                    case 1:
+                        morphStatesGO[0].SetActive(true);
+                        // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
+                        morphStatesGO[1].SetActive(false);
+                        morphStatesGO[2].SetActive(false);
 
-                case 2:
-                    morphStatesGO[1].SetActive(true);
-                    //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
-                    morphStatesGO[0].SetActive(false);
-                    morphStatesGO[2].SetActive(false);
+                        break;
 
-                    break;   
+                    case 2:
+                        morphStatesGO[1].SetActive(true);
+                        //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
+                        morphStatesGO[0].SetActive(false);
+                        morphStatesGO[2].SetActive(false);
 
-                case 3:
-                    morphStatesGO[2].SetActive(true);
-                    //Instantiate(morphStatesGO[2], transform.position, Quaternion.identity);
-                    morphStatesGO[0].SetActive(false);
-                    morphStatesGO[1].SetActive(false);
-                    break;
+                        break;
 
-                default:
-                    break;
+                    case 3:
+                        morphStatesGO[2].SetActive(true);
+                        //Instantiate(morphStatesGO[2], transform.position, Quaternion.identity);
+                        morphStatesGO[0].SetActive(false);
+                        morphStatesGO[1].SetActive(false);
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
+        
         
     }
 
   
-
-    
-
-
-    void CalmState()
-    {
-
-    }
-
-
-    void PowerUpState()
-    {
-
-    }
 }
