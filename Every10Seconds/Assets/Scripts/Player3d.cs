@@ -50,13 +50,16 @@ public class Player3d : MonoBehaviour
     Vector3 dir;
 
     [SerializeField]
-    bool mbUp;
+    bool mbUp,mbDown;
 
     [SerializeField]
     bool isCharged;
 
     [SerializeField]
     RoomUnlock roomUnlock;
+
+    [SerializeField]
+    Timer1 timer1;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -74,50 +77,64 @@ public class Player3d : MonoBehaviour
             transform.Rotate(new Vector3(0,transform.rotation.y,0));
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (charge < maxCharge)
+           /* if (charge < maxCharge)
             {
                 charge += Time.deltaTime;
 
-            }
+            }*/
             lr.SetActive(true);
             lrGO.SetPosition(0, originPoint.position);
-            lrGO.SetPosition(1,dir*maxDist+transform.position);
-            mbUp = false; 
+            lrGO.SetPosition(1,dir+transform.position);
+            mbUp = false;
+            mbDown = true;
            
         }
         if (Input.GetMouseButtonUp(0))
         {
             lr.SetActive(false);
-            if (charge >= maxCharge)
+            mbUp = true;
+            mbDown = false;
+           /* if (charge >= maxCharge)
             {
                 isCharged = true;
             }
-             mbUp = true;
+             mbUp = true;*/
         }
 
-        if(charge== 0)
+        /*  if(charge == 0)
+          {
+              isCharged = false;
+              mbUp = false;
+
+          }*/
+        /*if (rb.velocity.magnitude >= 25f)
         {
-            isCharged = false;
+            rb.drag = 3f;
         }
-
+        else
+        {
+            rb.drag = 0;
+        }*/
     }
+  
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-     
-        if(mbUp == true)
+
+
+        if (mbDown == true && mbUp == false)
         {
 
-            if (isCharged)
-            {
-                rb.velocity = (dir) * maxDist*dashSpeed;
-                charge = 0;
-            }
+            //rb.velocity = (dir) * maxDist*dashSpeed;
+
+            rb.AddForce(dir, ForceMode.Impulse);
+             //charge = 0;
            
         }
+
+        
         
        
     
@@ -139,7 +156,7 @@ public class Player3d : MonoBehaviour
 
         }
 
-
+/*
         if (direction > 0)
         {
             rb.velocity = transform.forward * speed;
@@ -148,7 +165,7 @@ public class Player3d : MonoBehaviour
         {
             rb.velocity = -transform.forward * speed;
         }
-
+*/
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -158,9 +175,16 @@ public class Player3d : MonoBehaviour
             if(collision.gameObject.tag == "Enemy")
             {
                 collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
+                collision.gameObject.GetComponent<EnemyAttackScript>().DeathEffect();
+                collision.gameObject.SetActive(false);
+                if(timer1.startTimer == false)
+                {
+                    timer1.startTimer = true;
+                }
                 roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
+
             }
-            
+
             rb.velocity = Vector3.zero;
             charge = 0;
         }
@@ -168,9 +192,15 @@ public class Player3d : MonoBehaviour
         if(collision.gameObject.tag == "PatrollingEnemy")
         {
             collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
-            roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
 
             collision.gameObject.GetComponent<ChasePlayerScript>().enemyMove = false;
+
+        }
+
+        if (collision.gameObject.tag == "Key")
+        {
+          //  roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
+            //Destroy(collision.gameObject);
 
         }
     }

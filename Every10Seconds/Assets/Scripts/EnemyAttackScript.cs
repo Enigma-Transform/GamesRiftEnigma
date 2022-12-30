@@ -38,11 +38,22 @@ public class EnemyAttackScript : MonoBehaviour
     [SerializeField]
     float size;
     Color iniColor;
-
+    [Range(0,100)]
+    [SerializeField]
+    float maxChargeTime;
     // Start is called before the first frame update
+    [SerializeField]
+    ParticleSystem deathEffectssystem;
+
+
+    [SerializeField]
+    GameObject lrGO;
+
+    LineRenderer lr;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        lr = lrGO.GetComponent<LineRenderer>();
     }
     void Start()
     {
@@ -51,13 +62,23 @@ public class EnemyAttackScript : MonoBehaviour
         ///StartCoroutine(Enemyrotation());
     }
 
+
+
+    private void Update()
+    {
+       
+            lrGO.SetActive(true);
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, Vector3.forward);
+        
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
         //AttackState();
 
        // TurretAiming(); 
-
+     
 
     }
 
@@ -94,9 +115,13 @@ public class EnemyAttackScript : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            TurretAiming();
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
-            gameObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            if(isEnemyHit == false)
+            {
+                TurretAiming();
+                gameObject.GetComponent<Renderer>().material.color = Color.black;
+                gameObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            }
+            
         }
        
     }
@@ -113,22 +138,14 @@ public class EnemyAttackScript : MonoBehaviour
     void TurretAiming()
     {
         time +=Time.deltaTime;
-        if (time >= 2.5)
+        if (time >= maxChargeTime)
         {
 
             StartCoroutine(shooting());
             time = 0;
 
         }
-        if (Physics.Raycast(RayoriginPoint.position, RayoriginPoint.transform.forward, out hitinfo, maxDist, layerMask))
-        {
-            if (hitinfo.collider.gameObject.tag == "Player")
-            {
-
-                //Debug.Log(time++ +"Player") ;
-                
-            }
-        }
+       
     }
 
     IEnumerator shooting()
@@ -148,17 +165,6 @@ public class EnemyAttackScript : MonoBehaviour
 
     }
 
-    IEnumerator Enemyrotation()
-    {
-        transform.Rotate(new Vector3(0,90,0));
-
-        yield return new WaitForSeconds(4f);
-        transform.Rotate(new Vector3(0, -90, 0));
-
-        yield return new WaitForSeconds(1f);
-
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -166,5 +172,8 @@ public class EnemyAttackScript : MonoBehaviour
 
         Gizmos.DrawSphere(hitinfo.point,size);
     }
-
+    public void DeathEffect()
+    {
+        deathEffectssystem.Play();
+    }
 }

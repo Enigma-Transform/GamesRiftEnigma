@@ -121,6 +121,8 @@
 -define:ENABLE_INPUT_SYSTEM
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:STARTER_ASSETS_PACKAGES_CHECKED
+-define:UNITY_POST_PROCESSING_STACK_V2
+-define:VISUAL_EFFECT_GRAPH_0_0_1_OR_NEWER
 -define:ENABLE_BURST_1_0_0_OR_NEWER
 -define:ENABLE_VR_MODULE
 -define:ENABLE_XR_MODULE
@@ -129,6 +131,7 @@
 -define:ENABLE_INPUT_SYSTEM_PACKAGE
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/StarterAssets/Editor/PackageChecker/StarterAssetsPackageChecker.dll"
 -r:"D:/GitHub/GamesRiftEnigma/Every10Seconds/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.dll"
 -r:"D:/GitHub/GamesRiftEnigma/Every10Seconds/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Mdb.dll"
 -r:"D:/GitHub/GamesRiftEnigma/Every10Seconds/Library/PackageCache/com.unity.burst@1.7.3/Unity.Burst.CodeGen/Unity.Burst.Cecil.Pdb.dll"
