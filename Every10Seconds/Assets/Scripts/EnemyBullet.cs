@@ -18,7 +18,7 @@ public class EnemyBullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = transform.forward * speed;
+        rb.AddForce(transform.forward * speed,ForceMode.Force);
         Destroy(this.gameObject, 5f);
     }
 

@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950edb6ceec1c5e4795916baaa0e4daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treeGO:
+  - {fileID: 5015580216191163848, guid: f27b52085886131418f245bb60738ffa, type: 3}
+  - {fileID: 882994851337883624, guid: f5375ae5f345eec42a5a4aeef204d069, type: 3}
+  - {fileID: 3422869677277811324, guid: c55cb7eeb8be9354b9c8088400af3051, type: 3}
+  - {fileID: 482562851521948565, guid: c46f394eceae77640887452dfe3975ac, type: 3}
   script: {fileID: 841763804}
   chasePlayerScript: {fileID: 841763806}
   isEnemyHit: 0
@@ -398,6 +403,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PatrollingEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7913888183720381778, guid: b497863a171bdda4fb2523a58c651d16,
+        type: 3}
+      propertyPath: deathEffectssystem
+      value: 
+      objectReference: {fileID: 3743659460418172074, guid: bf5de49da6d2d454997bad934c3f58ec,
+        type: 3}
     m_RemovedComponents:
     - {fileID: -8909653542480835479, guid: b497863a171bdda4fb2523a58c651d16, type: 3}
     - {fileID: 3796962725169114492, guid: b497863a171bdda4fb2523a58c651d16, type: 3}
@@ -469,3 +480,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMove: 0
+  speed: 0

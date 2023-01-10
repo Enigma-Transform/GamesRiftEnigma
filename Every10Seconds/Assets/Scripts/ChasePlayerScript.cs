@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChasePlayerScript : MonoBehaviour
 {
-
+    [SerializeField]
+    Enemy enemyScript;
     public bool enemyMove;
     GameObject player;
     Rigidbody rb;
+    [Range(0, 100)]
+    [SerializeField]
+    float speed;
     private void Awake()
     {
         enemyMove = true;
@@ -21,7 +26,7 @@ public class ChasePlayerScript : MonoBehaviour
         if (player != null)
         {
             // Debug.Log("Found");
-            Debug.Log(player.transform.position);
+            //Debug.Log(player.transform.position);
         }
 
     }
@@ -30,9 +35,21 @@ public class ChasePlayerScript : MonoBehaviour
 
         if (enemyMove == true)
         {
-            transform.LookAt(player.transform);
-            rb.velocity = -(transform.position - player.transform.position).normalized * 5f;
+            if (player.transform.position.y < 3f)
+            {
+                transform.LookAt(player.transform);
+                rb.velocity = -(transform.position - player.transform.position).normalized * speed;
+            }
+          
 
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            enemyScript.isEnemyHit = true;
         }
     }
 }

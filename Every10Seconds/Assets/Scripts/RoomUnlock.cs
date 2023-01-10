@@ -24,7 +24,7 @@ public class RoomUnlock : MonoBehaviour
         if(treeCountRoom1 == maxTrees)
         {
            // KeySpawner.roomOneUnlock = true;
-            Debug.Log("true");
+         //   Debug.Log("true");
         }
     }
     public void Room1TreeCount()

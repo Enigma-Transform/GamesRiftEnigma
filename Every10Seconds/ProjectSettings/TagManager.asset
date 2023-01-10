@@ -25,6 +25,10 @@ TagManager:
   - Wall
   - PatrollingEnemy
   - Key
+  - Ground
+  - HealthBullet
+  - StaticTurret
+  - EnemyMain
   layers:
   - Default
   - TransparentFX

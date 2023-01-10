@@ -1,9 +1,14 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player3d : MonoBehaviour
 {
+
+    Enemy enemyScript;
+    [SerializeField]
+    CinemachineImpulseSource impulseSource;
     Rigidbody rb;
 
     [SerializeField]
@@ -11,7 +16,7 @@ public class Player3d : MonoBehaviour
 
     [SerializeField]
     GameObject lr;
-    public Camera camera;
+    //public Camera camera;
 
     [Range(0, 100)]
     [SerializeField]
@@ -41,12 +46,12 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     Transform originPoint;
 
-    LineRenderer lrGO;
+   // LineRenderer lrGO;
     [SerializeField]
     float maxDist;
 
-    [SerializeField]
-    AudioSource audioSo;
+   // [SerializeField]
+   // AudioSource audioSo;
     Vector3 dir;
 
     [SerializeField]
@@ -55,16 +60,20 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     bool isCharged;
 
-    [SerializeField]
-    RoomUnlock roomUnlock;
+   // [SerializeField]
+  //  RoomUnlock roomUnlock;
 
     [SerializeField]
     Timer1 timer1;
+    [SerializeField]
+    bool shake = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentHealth = Health;
-        lrGO = lr.GetComponent<LineRenderer>();
+     //   lrGO = lr.GetComponent<LineRenderer>();
+      
     }
 
 
@@ -84,16 +93,16 @@ public class Player3d : MonoBehaviour
                 charge += Time.deltaTime;
 
             }*/
-            lr.SetActive(true);
-            lrGO.SetPosition(0, originPoint.position);
-            lrGO.SetPosition(1,dir+transform.position);
+          //  lr.SetActive(true);
+          //  lrGO.SetPosition(0, originPoint.position);
+           // lrGO.SetPosition(1,dir+transform.position);
             mbUp = false;
             mbDown = true;
            
         }
         if (Input.GetMouseButtonUp(0))
         {
-            lr.SetActive(false);
+          //  lr.SetActive(false);
             mbUp = true;
             mbDown = false;
            /* if (charge >= maxCharge)
@@ -122,7 +131,10 @@ public class Player3d : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (shake == true)
+        {
 
+        }
 
         if (mbDown == true && mbUp == false)
         {
@@ -156,32 +168,40 @@ public class Player3d : MonoBehaviour
 
         }
 
-/*
-        if (direction > 0)
+
+       /* if (direction > 0)
         {
             rb.velocity = transform.forward * speed;
-        }
+        }*/
         else if (direction < 0)
         {
-            rb.velocity = -transform.forward * speed;
+            rb.velocity = -transform.forward*speed;
         }
-*/
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")
         {
-            if(collision.gameObject.tag == "Enemy")
+
+            if (collision.gameObject.tag == "Enemy")
             {
-                collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
-                collision.gameObject.GetComponent<EnemyAttackScript>().DeathEffect();
-                collision.gameObject.SetActive(false);
+                impulseSource.GenerateImpulse();
+
+
+                if (rb.velocity.magnitude> 10)
+                {
+                    collision.gameObject.GetComponent<EnemyDeathEffectScript>().DeathEffect();
+                  
+                    collision.gameObject.SetActive(false);
+                }
+               
                 if(timer1.startTimer == false)
                 {
                     timer1.startTimer = true;
                 }
-                roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
+               // roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
 
             }
 
@@ -191,12 +211,34 @@ public class Player3d : MonoBehaviour
 
         if(collision.gameObject.tag == "PatrollingEnemy")
         {
-            collision.gameObject.GetComponent<EnemyNew>().isEnemyHit = true;
+            impulseSource.GenerateImpulse();
 
-            collision.gameObject.GetComponent<ChasePlayerScript>().enemyMove = false;
+
+            if (rb.velocity.magnitude > 10)
+
+            {
+                collision.gameObject.GetComponent<EnemyDeathEffectScript>().DeathEffect();
+                collision.gameObject.GetComponent<ChasePlayerScript>().enemyMove = false;
+
+                collision.gameObject.SetActive(false);
+            }
+
 
         }
 
+        if (collision.gameObject.tag == "StaticTurret")
+        {
+            impulseSource.GenerateImpulse();
+
+
+            if (rb.velocity.magnitude > 10)
+            {
+                collision.gameObject.GetComponent<EnemyDeathEffectScript>().DeathEffect();
+                collision.gameObject.SetActive(false);
+            }
+
+
+        }
         if (collision.gameObject.tag == "Key")
         {
           //  roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ChaseEnemy : MonoBehaviour
 {
-   [SerializeField]
-   EnemyNew script;
+    [SerializeField]
+    GameObject[] treeGO;
+
 
     [SerializeField]
     ChasePlayerScript chasePlayerScript;
-    [SerializeField]
-    bool isEnemyHit;
+
     [SerializeField]
     float time = 0;
     public enum MorphState
@@ -32,19 +32,18 @@ public class ChaseEnemy : MonoBehaviour
 
     GameObject enemyGO, calmGO, pickupGO, powerUpGo;
 
+    bool treeSpawned = false;
 
     Vector3 pos;
     // Update is called once per frame
     void Update()
     {
         pos = morphStatesGO[0].transform.position;
-        isEnemyHit = script.isEnemyHit;
 
         morphStatesGO[1].transform.position = pos;
         morphStatesGO[2].transform.position = pos;
 
-        if (isEnemyHit == false)
-        {
+        
             time += Time.deltaTime;
             if (time >= 10)
             {
@@ -83,11 +82,10 @@ public class ChaseEnemy : MonoBehaviour
                     default:
                         break;
                 }
-            }
+            
 
         }
-
-
+       
     }
 
    

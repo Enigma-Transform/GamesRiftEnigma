@@ -46,7 +46,8 @@ GameObject:
   - component: {fileID: 4616777435976144581}
   - component: {fileID: 8140571524556797904}
   - component: {fileID: 385306216}
-  - component: {fileID: 4729233909584813157}
+  - component: {fileID: 1143439747763212659}
+  - component: {fileID: 4084372276029054024}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -133,23 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b65a4a3e5fdd34c897af8b1f9c6c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemyHit: 0
+  enemyScript: {fileID: 0}
   RayoriginPoint: {fileID: 5738778331273497557}
   maxDist: 15
   layerMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  speed: 1
   damage: 0
-  floatSpeed: 3
   chasePlayer: 0
   enemyBullet: {fileID: -4071296502292896134, guid: e4354fdd703cbd74a99c44da4ce8f432,
     type: 3}
   time: 0
-  size: 0.5
   maxChargeTime: 0.2
-  deathEffectssystem: {fileID: 6128242095999150026, guid: 3b3fcae4f5d831640b4a6c827b5b14a7,
-    type: 3}
+  size: 0.5
   lrGO: {fileID: 6352619969077683077, guid: e14a854c2524a104aa646506c67a7ddd, type: 3}
 --- !u!54 &4616777435976144581
 Rigidbody:
@@ -165,7 +162,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 90
   m_CollisionDetection: 3
 --- !u!65 &8140571524556797904
 BoxCollider:
@@ -193,7 +190,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 17.6}
   m_Center: {x: 0, y: 0, z: 4.24}
---- !u!114 &4729233909584813157
+--- !u!114 &1143439747763212659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738778331816429184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d7a0055ad1e0ca4e84939ac78b83d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffectssystem: {fileID: 0}
+  enemyTransform: {fileID: 0}
+--- !u!114 &4084372276029054024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f73a32f1b5a53e4997c1114cf80950e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnemyHit: 0
 --- !u!1 &5738778331889051082
 GameObject:
   m_ObjectHideFlags: 0

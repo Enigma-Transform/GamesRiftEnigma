@@ -1,10 +1,13 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttackScript : MonoBehaviour
 {
-    public bool isEnemyHit = false;
+    
+    [SerializeField]
+    Enemy enemyScript;
 
     //EnemyAttackStateVariables
     [SerializeField]
@@ -14,16 +17,10 @@ public class EnemyAttackScript : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
 
-    [Range(0, 100)]
-    [SerializeField]
-    float speed;
-
     Rigidbody rb;
     [SerializeField]
     float damage;
-    [Range(0, 100)]
-    [SerializeField]
-    int floatSpeed;
+
     [SerializeField]
     bool chasePlayer;
 
@@ -35,21 +32,22 @@ public class EnemyAttackScript : MonoBehaviour
     [SerializeField]
     float time;
     RaycastHit hitinfo;
-    [SerializeField]
-    float size;
+
     Color iniColor;
     [Range(0,100)]
     [SerializeField]
     float maxChargeTime;
     // Start is called before the first frame update
-    [SerializeField]
-    ParticleSystem deathEffectssystem;
 
+    [SerializeField]
+    float size;
 
     [SerializeField]
     GameObject lrGO;
 
     LineRenderer lr;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -66,7 +64,6 @@ public class EnemyAttackScript : MonoBehaviour
 
     private void Update()
     {
-       
             lrGO.SetActive(true);
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, Vector3.forward);
@@ -82,7 +79,7 @@ public class EnemyAttackScript : MonoBehaviour
 
     }
 
-    void AttackState()
+  /*  void AttackState()
     {
         Vector3 pos = transform.position;
         RaycastHit hitinfo;
@@ -109,23 +106,30 @@ public class EnemyAttackScript : MonoBehaviour
             transform.position = pos;
             //  Debug.Log("none");
         }
-    }
+    }*/
 
     private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
         {
-            if(isEnemyHit == false)
+            if(enemyScript.isEnemyHit == false)
             {
                 TurretAiming();
                 gameObject.GetComponent<Renderer>().material.color = Color.black;
                 gameObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+
             }
-            
+
         }
        
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            enemyScript.isEnemyHit = true;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {   
         {
@@ -158,22 +162,19 @@ public class EnemyAttackScript : MonoBehaviour
 
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         isShot = false;
     
         //Debug.Log(isShot);
 
     }
 
-    void OnDrawGizmos()
+  /*  void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
 
         Gizmos.DrawSphere(hitinfo.point,size);
-    }
-    public void DeathEffect()
-    {
-        deathEffectssystem.Play();
-    }
+    }*/
+   
 }

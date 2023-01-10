@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    EnemyNew script;
-    [SerializeField]
-    bool isEnemyHit;
+    GameObject[] treeGO;
+
+    public bool isEnemyHit;
     [SerializeField]
     float time= 0;
     public enum MorphState
     {
-        Enemy =1,
-        PowerUp=2,
+        TurretEnemy =1,
+        ChasingEnemy=2,
         PickUp=3,
     }
     [SerializeField]
@@ -28,7 +29,9 @@ public class Enemy : MonoBehaviour
 
     GameObject enemyGO, calmGO, pickupGO, powerUpGo;
 
+    bool treeSpawned = false;
 
+    Vector3 pos;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,14 +41,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       isEnemyHit = script.isEnemyHit;
+        pos = morphStatesGO[1].transform.position;
+      //  isEnemyHit = script.isEnemyHit;
+
+        morphStatesGO[0].transform.position = pos;
+        morphStatesGO[2].transform.position = pos;
+        //isEnemyHit = script.isEnemyHit;
         
         if(isEnemyHit == false)
         {
             time += Time.deltaTime;
             if (time >= 10)
             {
-                state = Random.Range(1, 5);
+                state = Random.Range(0,4);
                 time = 0;
 
                 switch (state)
@@ -61,6 +69,7 @@ public class Enemy : MonoBehaviour
 
                     case 2:
                         morphStatesGO[1].SetActive(true);
+                        morphStatesGO[1].GetComponent<ChasePlayerScript>().enemyMove = true;
                         //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
                         morphStatesGO[0].SetActive(false);
                         morphStatesGO[2].SetActive(false);
@@ -77,6 +86,15 @@ public class Enemy : MonoBehaviour
                     default:
                         break;
                 }
+            }
+        }
+        else if(isEnemyHit == true)
+        {
+            if(treeSpawned == false)
+            {
+                Instantiate(treeGO[Random.Range(0,treeGO.Length-1)], new Vector3(pos.x, 0.804f, pos.z),transform.rotation);
+                treeSpawned = true;
+
             }
         }
         
