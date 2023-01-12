@@ -9,6 +9,10 @@ public class EnemyBullet : MonoBehaviour
     [Range(0, 100)]
     [SerializeField]
     float speed;
+
+    [Range(0, 100)]
+    [SerializeField]
+    int damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +31,8 @@ public class EnemyBullet : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-           // collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.position, ForceMode.Force);
+            // collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.gameObject.transform.position, ForceMode.Force);
+            collision.gameObject.GetComponent<Player3d>().TakeDamage(damage);
         }
         if(collision.gameObject.tag =="Player"|| collision.gameObject.tag == "Block"|| collision.gameObject.tag=="Wall")
         {

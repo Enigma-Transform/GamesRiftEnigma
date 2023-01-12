@@ -32,7 +32,6 @@ public class ChaseEnemy : MonoBehaviour
 
     GameObject enemyGO, calmGO, pickupGO, powerUpGo;
 
-    bool treeSpawned = false;
 
     Vector3 pos;
     // Update is called once per frame

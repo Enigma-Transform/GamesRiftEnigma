@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentHealth = Health;
-        gm.HealethUi(currentHealth);
+      //  gm.HealethUi(currentHealth);
     }
     // Start is called before the first frame update
     void Start()
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         {
           //  Debug.Log(true);
             collision.gameObject.SetActive(false);
-            gm.HealethUi(currentHealth += 1);
+       //     gm.HealethUi(currentHealth += 1);
             
             //Destroy(collision.gameObject);
         }
@@ -114,12 +114,12 @@ public class Player : MonoBehaviour
 
             if (currentHealth >= 0)
             {
-               gm.HealethUi(currentHealth -= 1);
+          //     gm.HealethUi(currentHealth -= 1);
             }
 
             if(currentHealth <= 0)
             {
-                gm.GameOver();
+           //     gm.GameOver();
             }
         }
         else

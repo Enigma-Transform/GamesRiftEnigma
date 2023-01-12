@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     {
         TurretEnemy =1,
         ChasingEnemy=2,
-        PickUp=3,
     }
     [SerializeField]
     int state;
@@ -45,7 +44,7 @@ public class Enemy : MonoBehaviour
       //  isEnemyHit = script.isEnemyHit;
 
         morphStatesGO[0].transform.position = pos;
-        morphStatesGO[2].transform.position = pos;
+        morphStatesGO[1].transform.position = pos;
         //isEnemyHit = script.isEnemyHit;
         
         if(isEnemyHit == false)
@@ -53,35 +52,27 @@ public class Enemy : MonoBehaviour
             time += Time.deltaTime;
             if (time >= 10)
             {
-                state = Random.Range(0,4);
+                state = Random.Range(0,2);
                 time = 0;
 
                 switch (state)
                 {
 
-                    case 1:
+                    case 0:
                         morphStatesGO[0].SetActive(true);
                         // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
                         morphStatesGO[1].SetActive(false);
-                        morphStatesGO[2].SetActive(false);
 
                         break;
 
-                    case 2:
+                    case 1:
                         morphStatesGO[1].SetActive(true);
                         morphStatesGO[1].GetComponent<ChasePlayerScript>().enemyMove = true;
                         //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
                         morphStatesGO[0].SetActive(false);
-                        morphStatesGO[2].SetActive(false);
 
                         break;
 
-                    case 3:
-                        morphStatesGO[2].SetActive(true);
-                        //Instantiate(morphStatesGO[2], transform.position, Quaternion.identity);
-                        morphStatesGO[0].SetActive(false);
-                        morphStatesGO[1].SetActive(false);
-                        break;
 
                     default:
                         break;

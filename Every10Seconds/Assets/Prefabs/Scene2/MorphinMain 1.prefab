@@ -58,7 +58,6 @@ MonoBehaviour:
   morphStatesGO:
   - {fileID: 1094675952889737468}
   - {fileID: 921399120726834625}
-  - {fileID: 4765010153285136370}
   morphStateEnum: 1
   isEnemySate: 0
   isPowerUpState: 0

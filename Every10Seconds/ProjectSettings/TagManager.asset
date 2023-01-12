@@ -29,6 +29,7 @@ TagManager:
   - HealthBullet
   - StaticTurret
   - EnemyMain
+  - RechargePoints
   layers:
   - Default
   - TransparentFX
@@ -36,7 +37,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
