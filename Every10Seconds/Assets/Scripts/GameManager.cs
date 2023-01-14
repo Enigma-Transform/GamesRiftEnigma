@@ -11,15 +11,25 @@ public class GameManager : MonoBehaviour
   //  TextMeshProUGUI replayText,GameOverText, healthText;
     [SerializeField]
     bool gameOver;
-    public Slider slider;
+    public Slider slider,healthSlider;
 
     [SerializeField]
     GameObject[] tree;
-
+    [SerializeField]
+    GameObject[] flower;
     [SerializeField]
     Transform player;
     [SerializeField]
     GameObject panel;
+    int challengeNo;
+    [SerializeField]
+    int flowersSpawned = 0;
+    [SerializeField]
+    Player3d playerScript;
+    [SerializeField]
+    TextMeshProUGUI challengeText1,challengeText2;
+   public int maxRepopulatedvalue;
+    public Material mat;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -29,6 +39,12 @@ public class GameManager : MonoBehaviour
 
              //   ReplayGame();
             }
+        }
+        //  Challenge();   
+
+        if (flowersSpawned >= maxRepopulatedvalue)
+        {
+            Debug.Log("You Win");
         }
     }
 
@@ -65,6 +81,13 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(tree[Random.Range(0, tree.Length)], player.position, Quaternion.identity);
     }
+
+    public void FlowerSpawn(Vector3 pos)
+    {
+        Instantiate(flower[Random.Range(0, flower.Length)], pos, Quaternion.identity);
+        flowersSpawned++;
+
+    }
     public void UpdateStreakBar(float streakTime, bool startStreak)
     {
         if (startStreak == true)
@@ -84,5 +107,28 @@ public class GameManager : MonoBehaviour
     {
         slider.maxValue =maxvalue;
     }
+    public void UpdateHealthBar(float health)
+    {
 
+        healthSlider.value = health;
+
+    }
+
+    public void setMaxValueHealth(float maxvalue)
+    {
+        healthSlider.maxValue = maxvalue;
+    }
+
+    public void Challenge()
+    {
+        if(playerScript.enemiesPurified == 3)
+        {
+            Debug.Log("Challenge1 Completed");
+        }
+
+        if (flowersSpawned== 4)
+        {
+            Debug.Log("Challenge2 Completed");
+        }
+    }
 }

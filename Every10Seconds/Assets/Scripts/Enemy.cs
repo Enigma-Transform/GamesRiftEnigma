@@ -5,10 +5,16 @@ using static UnityEditor.PlayerSettings;
 
 public class Enemy : MonoBehaviour
 {
+    GameObject player;
+
+    [Range(0, 100)]
+    [SerializeField]
+    float damage;
     [SerializeField]
     GameObject[] treeGO;
+    public bool enemyMove;
 
-    public bool isEnemyHit;
+    public bool didEnemyHit;
     [SerializeField]
     float time= 0;
     public enum MorphState
@@ -31,43 +37,66 @@ public class Enemy : MonoBehaviour
     bool treeSpawned = false;
 
     Vector3 pos;
+    [SerializeField]
+    GameManager gm;
+    [Range(0, 100)]
+    [SerializeField]
+    float speed;
+    public bool didPlayerHit;
+    [SerializeField]
+    ParticleSystem changePS;
+    Rigidbody rb;
+    [SerializeField]
+    bool enemyChanged = false;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>(); player = GameObject.FindGameObjectWithTag("Player");
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        pos = morphStatesGO[1].transform.position;
+       // pos = morphStatesGO[1].transform.position;
       //  isEnemyHit = script.isEnemyHit;
 
-        morphStatesGO[0].transform.position = pos;
-        morphStatesGO[1].transform.position = pos;
+     //   morphStatesGO[0].transform.position = pos;
+      //  morphStatesGO[1].transform.position = pos;
         //isEnemyHit = script.isEnemyHit;
         
-        if(isEnemyHit == false)
+        if(didPlayerHit == false)
         {
             time += Time.deltaTime;
             if (time >= 10)
             {
                 state = Random.Range(0,2);
-                time = 0;
+                int currentState = state;
 
+                time = 0;
+              
                 switch (state)
                 {
 
                     case 0:
+                        enemyChanged = true;
                         morphStatesGO[0].SetActive(true);
+                        enemyMove = false;
                         // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
                         morphStatesGO[1].SetActive(false);
+                       
 
                         break;
 
                     case 1:
+                        enemyChanged = true;
+
                         morphStatesGO[1].SetActive(true);
-                        morphStatesGO[1].GetComponent<ChasePlayerScript>().enemyMove = true;
+                        enemyMove = true;
                         //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
                         morphStatesGO[0].SetActive(false);
 
@@ -78,21 +107,72 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
-        }
-        else if(isEnemyHit == true)
-        {
-            if(treeSpawned == false)
+            if(enemyChanged == true)
             {
-                Instantiate(treeGO[Random.Range(0,treeGO.Length-1)], new Vector3(pos.x, 0.804f, pos.z),transform.rotation);
-                treeSpawned = true;
-
+                changePS.Play();
+                enemyChanged = false;
+            }
+            else
+            {
+                changePS.Stop();
             }
         }
+       
+
         
         
     }
+    private void FixedUpdate()
+    {
+        if (enemyMove == true)
+        {
+            if (player.transform.position.y < 3f)
+            {
+                transform.LookAt(player.transform);
+                rb.velocity = -(transform.position - player.transform.position).normalized * speed;
+            }
 
-  
 
-  
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (rb.velocity.magnitude > collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude)
+            {
+                didEnemyHit = true;
+                collision.gameObject.GetComponent<Player3d>().TakeDamage(damage);
+                Destroy(this.gameObject);
+
+              
+            }
+
+            // Destroy(this.gameObject);
+
+
+        }
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Physics.IgnoreCollision(collision.collider, this.gameObject.GetComponent<Collider>(),true);
+        }
+    }
+
+    public void TakeDamageFromPlayer()
+    {
+       
+            //Debug.Log(didPlayerHit);
+            if (treeSpawned == false)
+            {
+                // Instantiate(treeGO[Random.Range(0,treeGO.Length-1)], new Vector3(pos.x, 0.804f, pos.z),transform.rotation);
+                if (gm != null)
+                {
+                    gm.FlowerSpawn(transform.position);
+                    treeSpawned = true;
+
+                }
+                Destroy(this.gameObject);
+           }
+        
+    }
 }

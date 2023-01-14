@@ -69,8 +69,8 @@ public class Player3d : MonoBehaviour
     bool shake = false;
     [SerializeField]
     float streakTimer, streakTimerMaxValue;
-    [SerializeField]
-    int enemiesPurified;
+    
+  public  int enemiesPurified;
     [SerializeField]
     int streak;
     [SerializeField]
@@ -85,13 +85,15 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     Transform groundCheckOrigin;
     LayerMask groundLayer;
-    GameObject[] trail;
+
    
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentHealth = Health;
+        gm.setMaxValueHealth(currentHealth);
+        gm.UpdateHealthBar(currentHealth);
      //   lrGO = lr.GetComponent<LineRenderer>();
       
     }
@@ -105,21 +107,7 @@ public class Player3d : MonoBehaviour
     {
         dir = (transform.forward * maxDist);
 
-        if (rb.velocity.magnitude > 10)
-        {
-            for (int i = 0; i < trail.Length; i++)
-            {
-                trail[i].SetActive(true);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < trail.Length; i++)
-            {
-                trail[i].SetActive(false);
-            }
-
-        }
+      
         if (transform.rotation.x > 0|| transform.rotation.x < 0)
         {
             transform.Rotate(new Vector3(0,transform.rotation.y,0));
@@ -180,6 +168,7 @@ public class Player3d : MonoBehaviour
             if (streakTimer == 0)
             {
                 startStreak = false;
+                enemiesPurified = 0;
                 gm.UpdateStreakBar(streakTimer, startStreak);
             }
             if (enemiesPurified == 5 && streakTimer>0)
@@ -187,6 +176,7 @@ public class Player3d : MonoBehaviour
                 gm.TreeSpawner();
                 Debug.Log("spawn Tree");
                 startStreak = false;
+                enemiesPurified = 0;
                 gm.UpdateStreakBar(streakTimer,startStreak);
             }
         }
@@ -241,12 +231,13 @@ public class Player3d : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (currentHealth > 0)
         {
-            currentHealth -= damage;
 
+            currentHealth -= damage;
+            gm.UpdateHealthBar(currentHealth);
         }
     }
 
@@ -262,9 +253,12 @@ public class Player3d : MonoBehaviour
 
                 if (rb.velocity.magnitude> 10)
                 {
-                    collision.gameObject.GetComponent<EnemyDeathEffectScript>().DeathEffect();
-                  
-                    collision.gameObject.SetActive(false);
+
+                    collision.gameObject.GetComponent<Enemy>().TakeDamageFromPlayer();
+                        collision.gameObject.GetComponent<EnemyDeathEffectScript>().DeathEffect();
+                        collision.gameObject.SetActive(false);
+                    
+                   
                     if(startStreak== false)
                     {
                         startStreak = true;
@@ -328,12 +322,13 @@ public class Player3d : MonoBehaviour
 
 
         }
+        /*
         if (collision.gameObject.tag == "Key")
         {
           //  roomUnlock.GetComponent<RoomUnlock>().Room1TreeCount();
             //Destroy(collision.gameObject);
 
-        }
+        }*/
     }
 
   
@@ -342,6 +337,7 @@ public class Player3d : MonoBehaviour
         if(currentHealth < Health)
         {
             currentHealth += rechargeValue;
+            gm.UpdateHealthBar(currentHealth);
         }
         
     }

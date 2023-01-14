@@ -13,6 +13,9 @@ public class ChasePlayerScript : MonoBehaviour
     [Range(0, 100)]
     [SerializeField]
     float speed;
+    [Range(0, 100)]
+    [SerializeField]
+    float damage;
     private void Awake()
     {
         enemyMove = true;
@@ -45,11 +48,20 @@ public class ChasePlayerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+   /* private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            enemyScript.isEnemyHit = true;
+            if (rb.velocity.magnitude >= collision.gameObject.GetComponent<Rigidbody>().velocity.magnitude)
+            {
+                collision.gameObject.GetComponent<Player3d>().TakeDamage(damage);
+
+                this.gameObject.SetActive(false);
+            }
+     
+               // Destroy(this.gameObject);
+
+            
         }
-    }
+    }*/
 }

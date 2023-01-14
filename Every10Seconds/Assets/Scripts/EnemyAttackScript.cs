@@ -51,7 +51,7 @@ public class EnemyAttackScript : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        lr = lrGO.GetComponent<LineRenderer>();
+     //  lr = lrGO.GetComponent<LineRenderer>();
     }
     void Start()
     {
@@ -64,9 +64,9 @@ public class EnemyAttackScript : MonoBehaviour
 
     private void Update()
     {
-            lrGO.SetActive(true);
-            lr.SetPosition(0, transform.position);
-            lr.SetPosition(1, Vector3.forward);
+            //lrGO.SetActive(true);
+            //lr.SetPosition(0, transform.position);
+           // lr.SetPosition(1, Vector3.forward);
         
     }
     // Update is called once per frame
@@ -112,24 +112,23 @@ public class EnemyAttackScript : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            if(enemyScript.isEnemyHit == false)
-            {
+           
                 TurretAiming();
                 gameObject.GetComponent<Renderer>().material.color = Color.black;
                 gameObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
 
-            }
+            
 
         }
        
     }
-    private void OnCollisionEnter(Collision collision)
+  /* private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            enemyScript.isEnemyHit = true;
+            enemyScript.didPlayerHit = true;
         }
-    }
+    }*/
     private void OnTriggerExit(Collider other)
     {   
         {
