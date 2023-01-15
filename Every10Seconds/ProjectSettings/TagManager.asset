@@ -30,6 +30,10 @@ TagManager:
   - StaticTurret
   - EnemyMain
   - RechargePoints
+  - Area1
+  - Area2
+  - Area3
+  - DeadZone
   layers:
   - Default
   - TransparentFX

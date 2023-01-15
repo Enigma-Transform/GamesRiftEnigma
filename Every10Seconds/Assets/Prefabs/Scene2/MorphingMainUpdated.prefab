@@ -354,6 +354,8 @@ MonoBehaviour:
   gm: {fileID: 0}
   speed: 8
   didPlayerHit: 0
+  changePS: {fileID: 0}
+  enemyChanged: 0
 --- !u!54 &5450914057421907508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -465,6 +467,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'characterMedium '
       objectReference: {fileID: 0}
+    - target: {fileID: 8526692377329351650, guid: 897c2c9f27efb4a7b892708dd2efea5c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b18e1bac6847a294a8aefbfee1979800, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 897c2c9f27efb4a7b892708dd2efea5c, type: 3}
 --- !u!1 &1798496226034351054 stripped

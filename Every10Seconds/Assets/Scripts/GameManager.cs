@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
   //  TextMeshProUGUI replayText,GameOverText, healthText;
     [SerializeField]
     bool gameOver;
-    public Slider slider,healthSlider;
+    public Slider slider,healthSlider,environmentPopulatedSlider1, environmentPopulatedSlider2, environmentPopulatedSlider3;
 
     [SerializeField]
-    GameObject[] tree;
+    GameObject tree;
+    [SerializeField]
+    GameObject[] treeForBuilding;
     [SerializeField]
     GameObject[] flower;
     [SerializeField]
@@ -23,13 +25,24 @@ public class GameManager : MonoBehaviour
     GameObject panel;
     int challengeNo;
     [SerializeField]
-    int flowersSpawned = 0;
+    int flowersSpawned,flowersSpawnedArea2, flowersSpawnedArea3 = 0;
     [SerializeField]
     Player3d playerScript;
     [SerializeField]
     TextMeshProUGUI challengeText1,challengeText2;
    public int maxRepopulatedvalue;
     public Material mat;
+    public bool isArea1,isArea2,isArea3;
+    private void Start()
+    {
+        environmentPopulatedSlider3.maxValue = maxRepopulatedvalue;
+        environmentPopulatedSlider2.maxValue = maxRepopulatedvalue;
+        environmentPopulatedSlider1.maxValue = maxRepopulatedvalue;
+        environmentPopulatedSlider1.value = flowersSpawned;
+        environmentPopulatedSlider2.value = flowersSpawnedArea2;
+        environmentPopulatedSlider3.value = flowersSpawnedArea3;
+
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -45,6 +58,20 @@ public class GameManager : MonoBehaviour
         if (flowersSpawned >= maxRepopulatedvalue)
         {
             Debug.Log("You Win");
+        }
+
+        if (isArea1 == true)
+        {
+            Area1Slider(flowersSpawned);
+        }
+        else if (isArea2 == true)
+        {
+            
+            Area2Slider(flowersSpawnedArea2);
+        }
+        else if(isArea3 == true)
+        {
+            Area3Slider(flowersSpawnedArea3);
         }
     }
 
@@ -79,13 +106,59 @@ public class GameManager : MonoBehaviour
 
     public void TreeSpawner()
     {
-        Instantiate(tree[Random.Range(0, tree.Length)], player.position, Quaternion.identity);
+        Instantiate(tree, player.position, Quaternion.identity);
     }
 
-    public void FlowerSpawn(Vector3 pos)
+    public void NatureSpawn(Vector3 pos,int areaNo,int state)
     {
-        Instantiate(flower[Random.Range(0, flower.Length)], pos, Quaternion.identity);
-        flowersSpawned++;
+        if(areaNo == 1)
+        {
+            if (state == 0||state==1)
+            {
+                Instantiate(flower[Random.Range(0, flower.Length)], pos, Quaternion.identity);
+                flowersSpawned++;
+                environmentPopulatedSlider1.value = flowersSpawned;
+            }
+            else if (state == 2)
+            {
+                Instantiate(treeForBuilding[Random.Range(0, treeForBuilding.Length)], pos, Quaternion.identity);
+                flowersSpawned++;
+                environmentPopulatedSlider1.value = flowersSpawned;
+            }
+        
+
+        }
+        else if(areaNo == 2)
+        {
+            if (state == 0 || state == 1)
+            {
+                Instantiate(flower[Random.Range(0, flower.Length)], pos, Quaternion.identity);
+                flowersSpawnedArea2++;
+                environmentPopulatedSlider1.value = flowersSpawnedArea2;
+            }
+            else if (state == 2)
+            {
+                Instantiate(treeForBuilding[Random.Range(0, treeForBuilding.Length)], pos, Quaternion.identity);
+                flowersSpawnedArea2++;
+                environmentPopulatedSlider2.value = flowersSpawnedArea2;
+            }
+
+        }
+        else if(areaNo == 3)
+        {
+            if (state == 0 || state == 1)
+            {
+                Instantiate(flower[Random.Range(0, flower.Length)], pos, Quaternion.identity);
+                flowersSpawnedArea3++;
+                environmentPopulatedSlider3.value = flowersSpawnedArea3;
+            }
+            else if (state == 2)
+            {
+                Instantiate(treeForBuilding[Random.Range(0, treeForBuilding.Length)], pos, Quaternion.identity);
+                flowersSpawnedArea3++;
+                environmentPopulatedSlider3.value = flowersSpawnedArea3;
+            }
+        }
 
     }
     public void UpdateStreakBar(float streakTime, bool startStreak)
@@ -130,5 +203,19 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Challenge2 Completed");
         }
+    }
+
+    public void Area1Slider(int flowersSpawned)
+    {
+        environmentPopulatedSlider1.value = flowersSpawned;
+    }
+    public void Area2Slider(int flowersSpawned)
+    {
+        environmentPopulatedSlider2.value = flowersSpawned;
+    }
+    public void Area3Slider(int flowersSpawned)
+    {
+        
+        environmentPopulatedSlider3.value = flowersSpawned;
     }
 }

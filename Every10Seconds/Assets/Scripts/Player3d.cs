@@ -85,9 +85,9 @@ public class Player3d : MonoBehaviour
     [SerializeField]
     Transform groundCheckOrigin;
     LayerMask groundLayer;
-
-   
-    
+  public  int roomNo;
+  //  [SerializeField]
+  //  GameObject trail1,trail2,trail3;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -191,14 +191,20 @@ public class Player3d : MonoBehaviour
         {
 
             //rb.velocity = (dir) * maxDist*dashSpeed;
-
+           // trail1.SetActive(true);
+          //  trail2.SetActive(true);
+          //  trail3.SetActive(true);
             rb.AddForce(dir, ForceMode.Impulse);
              //charge = 0;
            
         }
 
-        
-        
+        else
+        {
+            //trail1.SetActive(false);
+           // trail2.SetActive(false);
+            //trail3.SetActive(false);
+        }
        
     
      float direction = Input.GetAxisRaw("Vertical");
@@ -240,7 +246,37 @@ public class Player3d : MonoBehaviour
             gm.UpdateHealthBar(currentHealth);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Area1")
+        {
+             roomNo =1;
 
+            gm.isArea1 = true;
+            gm.isArea2 = false;
+            gm.isArea3 = false;
+        }
+        else if (other.tag == "Area2")
+        {
+            roomNo = 2;
+
+            gm.isArea1 = false;
+            gm.isArea3 = false;
+            gm.isArea2 = true;
+        }
+        else if (other.tag == "Area3")
+        {
+            roomNo = 3;
+            gm.isArea1 = false;
+            gm.isArea2 = false;
+            gm.isArea3 = true;
+        }
+
+        if(other.tag == "DeadZone")
+        {
+            transform.position = new Vector3(0, 2f, -96.8f);
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Wall")

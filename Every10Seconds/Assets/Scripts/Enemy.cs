@@ -10,8 +10,8 @@ public class Enemy : MonoBehaviour
     [Range(0, 100)]
     [SerializeField]
     float damage;
-    [SerializeField]
-    GameObject[] treeGO;
+   // [SerializeField]
+    //GameObject[] treeGO;
     public bool enemyMove;
 
     public bool didEnemyHit;
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     bool isEnemySate,isPowerUpState,isCalmState;
 
-    GameObject enemyGO, calmGO, pickupGO, powerUpGo;
+
 
     bool treeSpawned = false;
 
@@ -74,7 +74,7 @@ public class Enemy : MonoBehaviour
             time += Time.deltaTime;
             if (time >= 10)
             {
-                state = Random.Range(0,2);
+                state = Random.Range(0,3);
                 int currentState = state;
 
                 time = 0;
@@ -88,7 +88,8 @@ public class Enemy : MonoBehaviour
                         enemyMove = false;
                         // Instantiate(morphStatesGO[0], transform.position, Quaternion.identity);
                         morphStatesGO[1].SetActive(false);
-                       
+                        morphStatesGO[2].SetActive(false);
+
 
                         break;
 
@@ -99,10 +100,19 @@ public class Enemy : MonoBehaviour
                         enemyMove = true;
                         //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
                         morphStatesGO[0].SetActive(false);
+                        morphStatesGO[2].SetActive(false);
 
                         break;
 
+                    case 2:
+                        enemyChanged = true;
 
+                        morphStatesGO[2].SetActive(true);
+                        enemyMove = false;
+                        //Instantiate(morphStatesGO[1], transform.position, Quaternion.identity);
+                        morphStatesGO[1].SetActive(false);
+                        morphStatesGO[0].SetActive(false);
+                        break;
                     default:
                         break;
                 }
@@ -117,9 +127,8 @@ public class Enemy : MonoBehaviour
                 changePS.Stop();
             }
         }
-       
 
-        
+        Destroy(this.gameObject, 40f);        
         
     }
     private void FixedUpdate()
@@ -128,7 +137,7 @@ public class Enemy : MonoBehaviour
         {
             if (player.transform.position.y < 3f)
             {
-                transform.LookAt(player.transform);
+                
                 rb.velocity = -(transform.position - player.transform.position).normalized * speed;
             }
 
@@ -167,7 +176,7 @@ public class Enemy : MonoBehaviour
                 // Instantiate(treeGO[Random.Range(0,treeGO.Length-1)], new Vector3(pos.x, 0.804f, pos.z),transform.rotation);
                 if (gm != null)
                 {
-                    gm.FlowerSpawn(transform.position);
+                    gm.NatureSpawn(transform.position, player.GetComponent<Player3d>().roomNo,state);
                     treeSpawned = true;
 
                 }
